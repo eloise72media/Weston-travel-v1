@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Getting to Weston-super-Mare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fff;
+      color: #222;
+      padding: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card-wrapper {
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .card {
+      width: 100%;
+      height: 180px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+
+    .card.flip {
+      transform: rotateY(180deg);
+    }
+
+    .card-side {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #f9f9f9;
+    }
+
+    .card-front {
+      background: #ffffff;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #e3f1ff;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>How Far Are You From the Beach Lawns?</h2>
+
+  <div class="grid" id="cardGrid"></div>
+
+  <script>
+    const cities = {
+      london: {
+        name: "London",
+        time: "Around 2.5 hours by train or car",
+        fun: "Enough time to crush 3 episodes of your fave show 🎬"
+      },
+      cardiff: {
+        name: "Cardiff",
+        time: "Just over 1 hour by train or car",
+        fun: "Quick coffee, and you're there ☕"
+      },
+      birmingham: {
+        name: "Birmingham",
+        time: "Approx. 2 hours by train or road",
+        fun: "Snack, podcast, arrive 🎧"
+      },
+      manchester: {
+        name: "Manchester",
+        time: "About 3.5 hours by car, 4 hours by train",
+        fun: "Road trip vibes incoming! 🛣️"
+      },
+      bristol: {
+        name: "Bristol",
+        time: "About 40 minutes by train or car",
+        fun: "Blink and you’re there! 🚗💨"
+      },
+      bath: {
+        name: "Bath",
+        time: "Around 1 hour by car or train",
+        fun: "Time for a pre-race playlist 🎵"
+      },
+      leeds: {
+        name: "Leeds",
+        time: "Around 4.5 hours by car, 5 hours by train",
+        fun: "Definitely bring snacks and comfy clothes 😴"
+      },
+      exeter: {
+        name: "Exeter",
+        time: "Around 1.5 hours by car",
+        fun: "Cruise through the countryside 🌄"
+      },
+      plymouth: {
+        name: "Plymouth",
+        time: "Approx. 2.5 hours by car",
+        fun: "Perfect for a podcast + snacks 🎙️"
+      },
+      southampton: {
+        name: "Southampton",
+        time: "Around 2.5 hours by car",
+        fun: "Windows down, good tunes 🔊"
+      }
+    };
+
+    const grid = document.getElementById("cardGrid");
+
+    Object.entries(cities).forEach(([key, data]) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "card-wrapper";
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const front = document.createElement("div");
+      front.className = "card-side card-front";
+      front.textContent = data.name;
+
+      const back = document.createElement("div");
+      back.className = "card-side card-back";
+      back.innerHTML = `<strong>Travel Time:</strong><br>${data.time}<br><br><em>${data.fun}</em>`;
+
+      card.appendChild(front);
+      card.appendChild(back);
+      wrapper.appendChild(card);
+      grid.appendChild(wrapper);
+
+      wrapper.addEventListener("click", () => {
+        card.classList.toggle("flip");
+      });
+    });
+  </script>
+
+</body>
+</html>
